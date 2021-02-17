@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha",
-    "svc:start": "node .",
+    "svc:start": "node service/dist/main.js",
     "svc:dev": "nodemon --config service/nodemon.json",
     "svc:build": "tsc --project service/tsconfig.json",
     "lint": "eslint . --ext .ts",

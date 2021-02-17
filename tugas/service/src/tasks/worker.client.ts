@@ -1,6 +1,7 @@
 import * as http from 'http';
+import { config } from '../config';
 
-const WORKER_HOST = 'http://localhost:7001';
+const WORKER_HOST = `http://localhost:${config.server.worker}`;
 const ERROR_WORKER_NOT_FOUND = 'pekerja tidak ditemukan';
 
 export function info(id: number) {

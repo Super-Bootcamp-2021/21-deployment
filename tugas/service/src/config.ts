@@ -8,6 +8,8 @@ export interface ServiceConfig {
     task: number;
     performance: number;
   };
+  bus: any;
+  kv: any;
   minio: any;
 }
 
@@ -24,6 +26,14 @@ const defaultConfig: ServiceConfig = {
     worker: 7001,
     task: 7002,
     performance: 7003,
+  },
+  bus: {
+    host: 'localhost',
+    port: 4222,
+  },
+  kv: {
+    host: 'localhost',
+    port: 6379,
   },
   minio: {
     endPoint: '127.0.0.1',
