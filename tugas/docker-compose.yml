@@ -35,7 +35,7 @@ services:
       - 8989:9000
   
   worker-svc:
-    image: tm1-svc
+    image: ghcr.io/kelompok-argon/tm1-svc
     command:
     - service:start
     - --
@@ -60,7 +60,7 @@ services:
     ports:
       - 7001:7001
   task-svc:
-    image: tm1-svc
+    image: ghcr.io/kelompok-argon/tm1-svc
     command:
     - service:start
     - --
@@ -86,7 +86,7 @@ services:
     ports:
       - 7002:7002
   performance-svc:
-    image: tm1-svc
+    image: ghcr.io/kelompok-argon/tm1-svc
     command:
     - service:start
     - --
