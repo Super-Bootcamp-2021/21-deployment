@@ -25,6 +25,7 @@ const defaultConfig = {
     port: 6379,
   },
   serverWorker: {
+		host: 'localhost',
     port: 7001,
   },
   serverTask: {
