@@ -16,6 +16,14 @@ const defaultConfig = {
     accessKey: 'local-minio',
     secretKey: 'local-test-secret',
   },
+	bus: {
+    host: 'localhost',
+    port: 4222,
+  },
+	kv: {
+    host: '127.0.0.1',
+    port: 6379,
+  },
   serverWorker: {
     port: 7001,
   },

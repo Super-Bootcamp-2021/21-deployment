@@ -28,7 +28,7 @@ async function init() {
   }
   try {
     console.log('connect to message bus');
-    await bus.connect();
+    await bus.connect(config.bus);
     console.log('message bus connected');
   } catch (err) {
     console.error('message bus connection failed');
@@ -36,7 +36,7 @@ async function init() {
   }
   try {
     console.log('connect to key value store');
-    await kv.connect();
+    await kv.connect(config.kv);
     console.log('key value store connected');
   } catch (err) {
     console.error('key value store connection failed');
