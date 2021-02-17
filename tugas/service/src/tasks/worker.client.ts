@@ -1,7 +1,7 @@
 import * as http from 'http';
 import { config } from '../config';
 
-const WORKER_HOST = `http://localhost:${config?.server?.portWorker}`;
+const WORKER_HOST = `http://${config?.host?.worker}:${config?.server?.portWorker}`;
 const ERROR_WORKER_NOT_FOUND = 'pekerja tidak ditemukan';
 
 export function info(id: number): Promise<string> {

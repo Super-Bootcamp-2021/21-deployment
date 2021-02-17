@@ -28,7 +28,7 @@ async function init(): Promise<void> {
   }
   try {
     console.log('connect to message bus');
-    await bus.connect();
+    await bus.connect(`nats://${config?.nats?.host}:${config?.nats?.port}`);
     console.log('message bus connected');
   } catch (err) {
     console.error('message bus connection failed');
@@ -36,7 +36,7 @@ async function init(): Promise<void> {
   }
   try {
     console.log('connect to key value store');
-    await kv.connect();
+    await kv.connect(config?.redis);
     console.log('key value store connected');
   } catch (err) {
     console.error('key value store connection failed');
