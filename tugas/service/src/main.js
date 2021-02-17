@@ -28,7 +28,7 @@ async function init() {
   }
   try {
     console.log('connect to message bus');
-    await bus.connect(config.bus);
+    await bus.connect(config.bus.host, config.bus);
     console.log('message bus connected');
   } catch (err) {
     console.error('message bus connection failed');
