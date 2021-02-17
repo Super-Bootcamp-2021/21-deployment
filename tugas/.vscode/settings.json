@@ -1,5 +1,6 @@
 {
   "files.associations": {
-    ".tmrc": "json"
+    ".tmrc": "json",
+    ".todorc": "json"
   }
 }

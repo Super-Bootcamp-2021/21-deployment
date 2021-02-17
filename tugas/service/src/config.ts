@@ -2,11 +2,11 @@ import * as rc from 'rc';
 
 const defaultConfig = {
   database: {
-    type: 'postgres',
+    type: 'mysql',
     host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '123456',
+    port: 3306,
+    username: 'root',
+    password: '',
     database: 'sanbercode2',
   },
   objectStorage: {
