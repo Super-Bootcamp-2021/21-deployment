@@ -11,7 +11,8 @@
     "web:build": "webpack --mode production",
     "web:dev": "webpack serve --open --mode development",
     "deploy": "vercel --prod",
-    "service:build": "tsc --project service/tsconfig.json"
+    "service:build": "tsc --project service/tsconfig.json",
+    "svc:all": "node ./service/dist/main.js worker & node ./service/dist/main.js task & node ./service/dist/main.js performance"
   },
   "author": "",
   "license": "ISC",

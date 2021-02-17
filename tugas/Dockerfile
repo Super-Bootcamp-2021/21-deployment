@@ -4,13 +4,10 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY service/dist ./service/dist
-COPY package.json package-lock.json ./
-
-# update certificates & timezone
-#RUN apk update && apk add --no-cache python make g++ tzdata ca-certificates
+COPY package.json package-lock.json index.js ./
 
 # install production dependencies
 RUN NODE_ENV=production npm install
 
-ENTRYPOINT [ "npm", "run", "svc:start", "--" ]
-CMD [ "worker" ]
+ENTRYPOINT [ "npm", "run" ]
+CMD [ "svc:all" ]
