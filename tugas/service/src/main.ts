@@ -42,7 +42,7 @@ async function init() {
   }
   try {
     console.log('connect to message bus');
-    await bus.connect(`${config.nats?.hostname}:${config.nats?.port}`); //update library
+    await bus.connect(`nats://${config.nats?.hostname}:${config.nats?.port}`); //update library
     console.log('message bus connected');
   } catch (err: any) {
     console.error('message bus connection failed');
