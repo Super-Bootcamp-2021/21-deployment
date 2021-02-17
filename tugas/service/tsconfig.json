@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "sourceMap": true,
     "allowJs": true,
-    "target": "ES6",
+    "target": "es2017",
+    "module": "commonjs",
     "moduleResolution": "Node",
-    "strictNullChecks": true,
+    "lib": ["es2017", "esnext.asynciterable"],
   },
-  "include": ["./**/*"]
+  "include": ["./src/**/*"]
 }
