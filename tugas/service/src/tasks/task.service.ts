@@ -15,7 +15,6 @@ import { saveFile, readFile, ERROR_FILE_NOT_FOUND } from '../lib/storage';
 import {IncomingMessage,ServerResponse} from 'http'
 
 export function addSvc(req:IncomingMessage, res:ServerResponse) {
-  console.log("masuk sini")
   const busboy = new Busboy({ headers: req.headers });
 
   let data:DataTask = {
@@ -36,7 +35,6 @@ export function addSvc(req:IncomingMessage, res:ServerResponse) {
   }
 
   busboy.on('file', async (fieldname, file, filename, encoding, mimetype) => {
-    console.log(fieldname,mimetype,file)
     switch (fieldname) {
       case 'attachment':
         try {

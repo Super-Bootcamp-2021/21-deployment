@@ -9,10 +9,8 @@ import {
 } from './store';
 import * as workerSvc from './worker.client';
 import * as taskSvc from './task.client';
-import {DataTask} from '../../../service/tasks/task'
 
-
-export const add = (data:any) => async (dispatch:any) => {
+export const add = (data: any) => async (dispatch: any) => {
   dispatch(loadingAction());
   try {
     const task = await taskSvc.add(data);
@@ -22,7 +20,7 @@ export const add = (data:any) => async (dispatch:any) => {
   }
 };
 
-export const done = (id:number) => async (dispatch:any) => {
+export const done = (id: number) => async (dispatch: any) => {
   dispatch(loadingAction());
   try {
     await taskSvc.done(id);
@@ -32,7 +30,7 @@ export const done = (id:number) => async (dispatch:any) => {
   }
 };
 
-export const cancel = (id:number) => async (dispatch:any) => {
+export const cancel = (id: number) => async (dispatch: any) => {
   dispatch(loadingAction());
   try {
     await taskSvc.cancel(id);
@@ -42,7 +40,7 @@ export const cancel = (id:number) => async (dispatch:any) => {
   }
 };
 
-export const getList = async (dispatch:any) => {
+export const getList = async (dispatch: any) => {
   dispatch(loadingAction());
   try {
     const tasks = await taskSvc.list();
@@ -52,7 +50,7 @@ export const getList = async (dispatch:any) => {
   }
 };
 
-export const getWorkersList = async (dispatch:any) => {
+export const getWorkersList = async (dispatch: any) => {
   dispatch(loadingAction());
   try {
     const workers = await workerSvc.list();
