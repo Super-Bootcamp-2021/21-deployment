@@ -17,8 +17,8 @@ import { IncomingMessage, ServerResponse } from 'http';
 export function registerSvc(req: IncomingMessage, res: ServerResponse) {
   const busboy = new Busboy({ headers: req.headers });
 
-  const data:Worker = {
-    name:'',
+  const data: Worker = {
+    name: '',
     age: 0,
     bio: '',
     address: '',
@@ -35,46 +35,49 @@ export function registerSvc(req: IncomingMessage, res: ServerResponse) {
     }
   }
 
-  busboy.on('file', async (fieldname: any, file: { pipe: (arg0: Writable) => void; }, filename: any, encoding: any, mimetype: string) => {
-    switch (fieldname) {
-      case 'photo':
-        if(!data.photo) {
-          res.statusCode = 400;
-          res.write('Worker doesnt have a photo');
-          res.end();
-          return;
-        }
-        try {
-          data.photo = await saveFile(file, mimetype);
-        } catch (err) {
-          abort();
-        }
-        if (!req.aborted && finished) {
+  busboy.on(
+    'file',
+    async (
+      fieldname: any,
+      file: { pipe: (arg0: Writable) => void },
+      filename: any,
+      encoding: any,
+      mimetype: string
+    ) => {
+      switch (fieldname) {
+        case 'photo':
           try {
-            const worker = await register(data);
-            res.setHeader('content-type', 'application/json');
-            res.write(JSON.stringify(worker));
+            data.photo = await saveFile(file, mimetype);
           } catch (err) {
-            if (err === ERROR_REGISTER_DATA_INVALID) {
-              res.statusCode = 401;
-            } else {
-              res.statusCode = 500;
-            }
-            res.write(err);
+            abort();
           }
-          res.end();
+          if (!req.aborted && finished) {
+            try {
+              const worker = await register(data);
+              res.setHeader('content-type', 'application/json');
+              res.write(JSON.stringify(worker));
+            } catch (err) {
+              if (err === ERROR_REGISTER_DATA_INVALID) {
+                res.statusCode = 401;
+              } else {
+                res.statusCode = 500;
+              }
+              res.write(err);
+            }
+            res.end();
+          }
+          break;
+        default: {
+          const noop = new Writable({
+            write(chunk, encding, callback) {
+              setImmediate(callback);
+            },
+          });
+          file.pipe(noop);
         }
-        break;
-      default: {
-        const noop = new Writable({
-          write(chunk, encding, callback) {
-            setImmediate(callback);
-          },
-        });
-        file.pipe(noop);
       }
     }
-  });
+  );
 
   busboy.on('field', (fieldname: string, val: any) => {
     if (['name', 'age', 'bio', 'address'].includes(fieldname)) {
@@ -92,7 +95,10 @@ export function registerSvc(req: IncomingMessage, res: ServerResponse) {
   req.pipe(busboy);
 }
 
-export async function listSvc(req:IncomingMessage, res: ServerResponse): Promise<void> {
+export async function listSvc(
+  req: IncomingMessage,
+  res: ServerResponse
+): Promise<void> {
   try {
     const workers = await list();
     res.setHeader('content-type', 'application/json');
@@ -105,8 +111,11 @@ export async function listSvc(req:IncomingMessage, res: ServerResponse): Promise
   }
 }
 
-export async function infoSvc(req:IncomingMessage, res:ServerResponse):Promise<void> {
-  const uri = url.parse(req.url!, true);// tanda ! diakhir variabel tanpa bahwa variabel tersebut pasti ada isinya
+export async function infoSvc(
+  req: IncomingMessage,
+  res: ServerResponse
+): Promise<void> {
+  const uri = url.parse(req.url!, true); // tanda ! diakhir variabel tanpa bahwa variabel tersebut pasti ada isinya
   const id = uri.query['id'];
   if (!id) {
     res.statusCode = 401;
@@ -132,8 +141,11 @@ export async function infoSvc(req:IncomingMessage, res:ServerResponse):Promise<v
   }
 }
 
-export async function removeSvc(req:IncomingMessage, res:ServerResponse):Promise<void> {
-  const uri = url.parse(req.url!, true);// tanda ! diakhir variabel tanpa bahwa variabel tersebut pasti ada isinya
+export async function removeSvc(
+  req: IncomingMessage,
+  res: ServerResponse
+): Promise<void> {
+  const uri = url.parse(req.url!, true); // tanda ! diakhir variabel tanpa bahwa variabel tersebut pasti ada isinya
   const id = uri.query['id'];
   if (!id) {
     res.statusCode = 401;
@@ -160,8 +172,11 @@ export async function removeSvc(req:IncomingMessage, res:ServerResponse):Promise
   }
 }
 
-export async function getPhotoSvc(req:IncomingMessage, res:ServerResponse):Promise<void> {
-  const uri:url.UrlWithParsedQuery = url.parse(req.url!, true);
+export async function getPhotoSvc(
+  req: IncomingMessage,
+  res: ServerResponse
+): Promise<void> {
+  const uri: url.UrlWithParsedQuery = url.parse(req.url!, true);
   const objectName = uri.pathname!.replace('/photo/', '');
   if (!objectName) {
     res.statusCode = 400;
@@ -170,8 +185,8 @@ export async function getPhotoSvc(req:IncomingMessage, res:ServerResponse):Promi
   }
   try {
     const objectRead = await readFile(objectName);
-    let mimeContent = mime.lookup(objectName)
-    if(typeof mimeContent === 'string'){
+    let mimeContent = mime.lookup(objectName);
+    if (typeof mimeContent === 'string') {
       res.setHeader('Content-Type', mimeContent);
       res.statusCode = 200;
       objectRead.pipe(res);

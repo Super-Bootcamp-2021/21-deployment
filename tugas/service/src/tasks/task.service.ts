@@ -9,22 +9,22 @@ import {
   list,
   ERROR_TASK_DATA_INVALID,
   ERROR_TASK_NOT_FOUND,
-  DataTask
+  DataTask,
 } from './task';
 import { saveFile, readFile, ERROR_FILE_NOT_FOUND } from '../lib/storage';
-import {IncomingMessage,ServerResponse} from 'http'
+import { IncomingMessage, ServerResponse } from 'http';
 
-export function addSvc(req:IncomingMessage, res:ServerResponse) {
+export function addSvc(req: IncomingMessage, res: ServerResponse) {
   const busboy = new Busboy({ headers: req.headers });
 
-  let data:DataTask = {
+  let data: DataTask = {
     job: '',
     assigneeId: 0,
     attachment: '',
   };
 
   let finished = false;
-  
+
   function abort() {
     req.unpipe(busboy);
     if (!req.aborted) {
@@ -90,7 +90,7 @@ export function addSvc(req:IncomingMessage, res:ServerResponse) {
   req.pipe(busboy);
 }
 
-export async function listSvc(req:IncomingMessage, res:ServerResponse) {
+export async function listSvc(req: IncomingMessage, res: ServerResponse) {
   try {
     const tasks = await list();
     res.setHeader('content-type', 'application/json');
@@ -103,8 +103,8 @@ export async function listSvc(req:IncomingMessage, res:ServerResponse) {
   }
 }
 
-export async function doneSvc(req:IncomingMessage, res:ServerResponse) {
-  const uri:url.UrlWithParsedQuery = url.parse(req.url!, true);
+export async function doneSvc(req: IncomingMessage, res: ServerResponse) {
+  const uri: url.UrlWithParsedQuery = url.parse(req.url!, true);
   const id = uri.query['id'];
   if (!id) {
     res.statusCode = 401;
@@ -113,15 +113,14 @@ export async function doneSvc(req:IncomingMessage, res:ServerResponse) {
     return;
   }
   try {
-    if(typeof id === 'string'){
-      const idnum = parseInt(id)
+    if (typeof id === 'string') {
+      const idnum = parseInt(id);
       const task = await done(idnum);
       res.setHeader('content-type', 'application/json');
       res.statusCode = 200;
       res.write(JSON.stringify(task));
       res.end();
     }
-    
   } catch (err) {
     if (err === ERROR_TASK_NOT_FOUND) {
       res.statusCode = 404;
@@ -135,8 +134,8 @@ export async function doneSvc(req:IncomingMessage, res:ServerResponse) {
   }
 }
 
-export async function cancelSvc(req:IncomingMessage, res:ServerResponse) {
-  const uri:url.UrlWithParsedQuery = url.parse(req.url!, true);
+export async function cancelSvc(req: IncomingMessage, res: ServerResponse) {
+  const uri: url.UrlWithParsedQuery = url.parse(req.url!, true);
   const id = uri.query['id'];
   if (!id) {
     res.statusCode = 401;
@@ -145,15 +144,14 @@ export async function cancelSvc(req:IncomingMessage, res:ServerResponse) {
     return;
   }
   try {
-    if(typeof id === 'string'){
-      const idnum = parseInt(id)
+    if (typeof id === 'string') {
+      const idnum = parseInt(id);
       const task = await cancel(idnum);
       res.setHeader('content-type', 'application/json');
       res.statusCode = 200;
       res.write(JSON.stringify(task));
       res.end();
     }
-    
   } catch (err) {
     if (err === ERROR_TASK_NOT_FOUND) {
       res.statusCode = 404;
@@ -167,8 +165,11 @@ export async function cancelSvc(req:IncomingMessage, res:ServerResponse) {
   }
 }
 
-export async function getAttachmentSvc(req:IncomingMessage, res:ServerResponse) {
-  const uri:url.UrlWithParsedQuery = url.parse(req.url!, true);
+export async function getAttachmentSvc(
+  req: IncomingMessage,
+  res: ServerResponse
+) {
+  const uri: url.UrlWithParsedQuery = url.parse(req.url!, true);
   const objectName = uri.pathname!.replace('/attachment/', '');
   if (!objectName) {
     res.statusCode = 400;
@@ -177,13 +178,12 @@ export async function getAttachmentSvc(req:IncomingMessage, res:ServerResponse) 
   }
   try {
     const objectRead = await readFile(objectName);
-    let mimeContent = mime.lookup(objectName)
-    if(typeof mimeContent === 'string'){
+    let mimeContent = mime.lookup(objectName);
+    if (typeof mimeContent === 'string') {
       res.setHeader('Content-Type', mimeContent);
       res.statusCode = 200;
       objectRead.pipe(res);
     }
-    
   } catch (err) {
     if (err === ERROR_FILE_NOT_FOUND) {
       res.statusCode = 404;
@@ -197,4 +197,3 @@ export async function getAttachmentSvc(req:IncomingMessage, res:ServerResponse) 
     return;
   }
 }
-
