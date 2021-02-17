@@ -8,7 +8,6 @@ const { config } = require('./config');
 const workerServer = require('./worker/server');
 const tasksServer = require('./tasks/server');
 const performanceServer = require('./performance/server');
-const { config } = require('./config');
 
 async function init() {
   try {

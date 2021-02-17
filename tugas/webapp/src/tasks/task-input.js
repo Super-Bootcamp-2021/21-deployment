@@ -5,7 +5,7 @@ import { store$, errorAction } from './store';
 export const TaskInput = Vue.extend({
     props: ['workers'],
     render(crt) {
-        crt(
+        return crt(
             'form',
             {
               on: {
@@ -60,7 +60,7 @@ export const TaskInput = Vue.extend({
                   },
                 },
                 [
-                  this.$props.workers.map((worker) => {
+                  this.$props?.workers?.map((worker) => {
                     return crt(
                       'option',
                       {
