@@ -6,8 +6,8 @@ const defaultConfig = {
     host: 'localhost',
     port: 5432,
     username: 'postgres',
-    password: '',
-    database: 'database',
+    password: 'Praptektoitb97',
+    database: 'sanbercode2',
   },
   minio_database: {
     endPoint: '192.168.0.8',
