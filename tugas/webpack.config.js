@@ -7,12 +7,12 @@ module.exports = {
     performance: './webapp/src/performance/main.js',
   },
   output: {
-    path: path.resolve(__dirname, 'www'),
+    path: path.resolve(__dirname, 'webapp/www'),
     filename: '[name].js',
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './webapp//www',
+    contentBase: '/webapp//www',
     port: 7000,
   },
   resolve: {

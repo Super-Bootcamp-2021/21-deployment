@@ -5,3 +5,5 @@ file-storage
 docs
 .tmrc
 .env
+
+.vercel
