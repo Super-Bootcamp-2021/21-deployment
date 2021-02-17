@@ -46,11 +46,16 @@ services:
       tm_database__username: postgres
       tm_database__password: postgres
       tm_database__database: tm
-      tm_storage__endPoint: "172.18.0.5"
-      tm_storage__port: 9000
+      tm_storage__endPoint: minio
       tm_storage__accessKey: minio
       tm_storage__secretKey: miniostorage
-      todo_serverWorker__port: 7001
+      tm_bus__host: nats
+      tm_bus__port: 4222
+      tm_kv__host: redis
+      tm_kv__port: 6379
+      tm_serverWorker__port: 7001
+    expose:
+      - 7001
     ports:
       - 7001:7001
   task-svc:
@@ -69,10 +74,15 @@ services:
       tm_database__password: postgres
       tm_database__database: tm
       tm_storage__endPoint: minio
-      tm_storage__port: 9000
       tm_storage__accessKey: minio
       tm_storage__secretKey: miniostorage
-      todo_serverTask__port: 7002
+      tm_bus__host: nats
+      tm_bus__port: 4222
+      tm_kv__host: redis
+      tm_kv__port: 6379
+      tm_serverWorker__host: worker-svc
+      tm_serverWorker__port: 7001
+      tm_serverTask__port: 7002
     ports:
       - 7002:7002
   perf-svc:
@@ -90,10 +100,13 @@ services:
       tm_database__password: postgres
       tm_database__database: tm
       tm_storage__endPoint: minio
-      tm_storage__port: 9000
       tm_storage__accessKey: minio
       tm_storage__secretKey: miniostorage
-      todo_serverPerformance__port: 7003
+      tm_bus__host: nats
+      tm_bus__port: 4222
+      tm_kv__host: redis
+      tm_kv__port: 6379
+      tm_serverPerformance__port: 7003
     ports:
       - 7003:7003
   
