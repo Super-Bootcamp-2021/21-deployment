@@ -1,0 +1,67 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tugas21
+    expose:
+      - 5432
+    ports:
+      - 5435:5432
+  redis:
+    # Docker Hub image
+    image: redis
+    expose: 
+      - 6373
+    ports: 
+      - 6379:6373
+  nats:
+    image: nats
+    expose: 
+      - 4224
+      - 6226
+      - 8228
+    ports:
+      - 4222:4224
+      - 6222:6226
+      - 8222:8228  
+  minio:
+    image: minio/minio
+    expose: 
+      - 1111
+    ports: 
+      - 1111:1111
+      #- 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: access_key
+      MINIO_SECRET_KEY: secret_key
+  tugas-21-erbium:
+    image: ghcr.io/erbium-sanbercode/tugas-21-erbium:latest
+    command:
+      - svc:all
+    depends_on:
+      - postgres
+      - redis
+      - nats
+      - minio
+    environment:
+      tm_database__host: postgres
+      tm_database__port: 5432
+      tm_database__username: postgres
+      tm_database__password: postgres
+      tm_database__database: tugas21
+      tm_server__workerPort: 7001
+      tm_server__taskPort: 7002
+      tm_server__performancePort: 7003
+      tm_minio__endPoint: 127.0.0.1
+      tm_minio__accessKey: access_key
+      tm_minio__secretKey: secret_key
+      tm_minio__port: 1111
+    expose: 
+      - 7001
+      - 7002
+      - 7003
+    ports:
+      - 7000:80
