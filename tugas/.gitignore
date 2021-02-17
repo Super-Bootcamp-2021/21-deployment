@@ -8,3 +8,4 @@ dist
 webapp/www/*.js
 webapp/www/*.txt
 vercel
+.vercel
