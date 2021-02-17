@@ -42,7 +42,7 @@ async function init() {
   }
   try {
     console.log('connect to message bus');
-    await bus.connect();
+    await bus.connect(`${config.nats?.hostname}:${config.nats?.port}`); //update library
     console.log('message bus connected');
   } catch (err: any) {
     console.error('message bus connection failed');
@@ -50,7 +50,10 @@ async function init() {
   }
   try {
     console.log('connect to key value store');
-    await kv.connect();
+    await kv.connect({
+      host: config.kv.hostname,
+      port: config.kv.port,
+    }); //update library
     console.log('key value store connected');
   } catch (err: any) {
     console.error('key value store connection failed');

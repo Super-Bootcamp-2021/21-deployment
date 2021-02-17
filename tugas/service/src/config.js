@@ -10,10 +10,18 @@ const defaultConfig = {
     database: 'database',
   },
   minio: {
-    endPoint: '127.0.0.1',
+    endPoint: '127.0.0.1', //diganti
     port: 9000,
     accessKey: 'minioadmin',
     secretKey: 'minioadmin',
+  },
+  nats: {
+    hostname: 'localhost',
+    port: '4222',
+  },
+  kv: {
+    hostname: 'localhost',
+    port: '6379',
   },
   server: {
     port: {

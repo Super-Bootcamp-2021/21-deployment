@@ -1,8 +1,4 @@
-import {
-  createAction,
-  createReducer,
-  configureStore,
-} from '@reduxjs/toolkit';
+import { createAction, createReducer, configureStore } from '@reduxjs/toolkit';
 import {
   initialState,
   error,
@@ -15,17 +11,20 @@ import {
   clearError,
 } from './reducer';
 import thunkMiddleware from 'redux-thunk';
-import {TaskInterface,WorkerInterface} from '../../../service/tasks/task.model';
+import {
+  TaskInterface,
+  WorkerInterface,
+} from '../../../service/src/tasks/task.model';
 
-enum ActionType{
-  ERROR='error',
-  LOADING='loading',
-  ADDED='added',
-  DONE='done',
-  CANCELED='canceled',
-  TASKS_LOADED='tasksLoaded',
-  WORKERS_LOADED='workersLoaded',
-  CLEAR_ERROR='clearError',
+enum ActionType {
+  ERROR = 'error',
+  LOADING = 'loading',
+  ADDED = 'added',
+  DONE = 'done',
+  CANCELED = 'canceled',
+  TASKS_LOADED = 'tasksLoaded',
+  WORKERS_LOADED = 'workersLoaded',
+  CLEAR_ERROR = 'clearError',
 }
 
 export const errorAction = createAction<any>(ActionType.ERROR);
@@ -33,8 +32,12 @@ export const loadingAction = createAction<void>(ActionType.LOADING);
 export const addedAction = createAction<TaskInterface>(ActionType.ADDED);
 export const doneAction = createAction<number>(ActionType.DONE);
 export const canceledAction = createAction<number>(ActionType.CANCELED);
-export const tasksLoadedAction = createAction<TaskInterface[]>(ActionType.TASKS_LOADED);
-export const workersLoadedAction = createAction<WorkerInterface>(ActionType.WORKERS_LOADED);
+export const tasksLoadedAction = createAction<TaskInterface[]>(
+  ActionType.TASKS_LOADED
+);
+export const workersLoadedAction = createAction<WorkerInterface>(
+  ActionType.WORKERS_LOADED
+);
 export const clearErrorAction = createAction<void>(ActionType.CLEAR_ERROR);
 
 const reducer = createReducer(initialState, {
@@ -52,5 +55,3 @@ export const store$ = configureStore({
   reducer,
   middleware: [thunkMiddleware],
 });
-
-

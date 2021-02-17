@@ -1,23 +1,31 @@
 import { EntitySchema, TableExclusion } from 'typeorm';
-export interface WorkerInterface{
-  id:number;
-  name:string;
-  age:number;
-  bio:string;
-  address:string;
-  photo:string;
+export interface WorkerInterface {
+  id: number;
+  name: string;
+  age: number;
+  bio: string;
+  address: string;
+  photo: string;
 }
-export interface TaskInterface{
-  id:number;
-  job:string;
-  done:boolean;
-  cancelled:boolean;
-  addedAt:string;
-  attachment:string;
-  assignee:WorkerInterface;
+export interface TaskInterface {
+  id: number;
+  job: string;
+  done: boolean;
+  cancelled: boolean;
+  addedAt: string;
+  attachment: string;
+  assignee: WorkerInterface;
 }
 export class Task {
-  constructor(public id:number, public job:string, public assignee:WorkerInterface, public done:boolean, public cancelled:boolean, public attachment:string, public addedAt:string) {
+  constructor(
+    public id: number,
+    public job: string,
+    public assignee: WorkerInterface,
+    public done: boolean,
+    public cancelled: boolean,
+    public attachment: string,
+    public addedAt: string
+  ) {
     this.id = id;
     this.job = job;
     this.done = done;
@@ -69,5 +77,3 @@ export const TaskSchema = new EntitySchema<TaskInterface>({
     },
   },
 });
-
-
