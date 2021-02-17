@@ -2,8 +2,16 @@ node_modules
 .nyc_output
 *.db
 file-storage
+<<<<<<< HEAD
 .tmrc
 .env
 .vercel
 dist
 docs
+=======
+docs
+.tmrc
+.env
+www/*.js
+www/*.txt
+>>>>>>> c67f0bcdbdd92d57d66c89067fdffcd8573367f9
