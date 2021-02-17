@@ -7,3 +7,4 @@ docs
 .env
 www/*.js
 www/*.txt
+.vercel
