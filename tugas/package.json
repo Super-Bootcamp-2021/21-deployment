@@ -4,10 +4,14 @@
   "description": "sample service mesh implementation",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --open --mode development",
     "test": "nyc mocha",
-    "svc:start": "node .",
+    "svc:start": "ts-node --project service/tsconfig.json .",
     "svc:dev": "nodemon .",
     "lint": "eslint .",
+    "service": "ts-node --project service/tsconfig.json .",
+    "service:dev": "nodemon --config service/nodemon.json",
     "service:start": "node service/dist/main.js",
     "service:build": "tsc --project service/tsconfig.json",
     "web:build": "webpack --mode production",
@@ -50,6 +54,7 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
     "typeorm": "^0.2.30",
+    "vercel": "^21.2.3",
     "vue": "^2.6.12"
   }
 }
