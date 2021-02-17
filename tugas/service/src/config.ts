@@ -16,13 +16,21 @@ const defaultConfig = {
     accessKey: 'minioadmin',
     secretKey: 'minioadmin',
   },
+  nats: {
+    host: 'localhost',
+    port: 4222
+  },
+  redis: {
+    host: 'localhost',
+    port: 6379
+  },
   server: {
     portWorker: 7001,
     portTask: 7002,
     portPerformance: 7003,
   },
   host: {
-    worker: 'http://localhost:7001',
+    worker: 'localhost',
   },
 };
 
