@@ -10,11 +10,11 @@ export const ListWorker = Vue.extend({
       return element('div', [
         element('li', [
           element('img', {
-            attrs: {
-              href: '${worker.photo}',
-              alt: '',
-              width: '30px',
-              height: '30px',
+            domProps: {
+              src: worker.photo,
+              alt: 'worker.jpg',
+              width: '40',
+              height: '40',
             },
           }),
           element('span', worker.name),
