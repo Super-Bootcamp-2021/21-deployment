@@ -4,7 +4,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY service ./service
-COPY package.json package-lock.jon ./
+COPY package.json package-lock.json ./
 
 #update time zone and certificates
 RUN apk update && apk add --no-cache python make g++ tzdata ca-certificates
