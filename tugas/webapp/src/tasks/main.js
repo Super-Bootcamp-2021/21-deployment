@@ -1,1 +1,1 @@
-require('./vdom');
+import './vdom';
