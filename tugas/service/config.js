@@ -1,16 +1,16 @@
 const rc = require('rc');
 
 const defaultConfig = {
-  pg_database: {
+  database: {
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    username: 'postgres',
-    password: '',
-    database: 'database',
+    username: 'masdimya',
+    password: '1234567890',
+    database: 'sanbercode2',
   },
-  minio_database: {
-    endPoint: '192.168.0.8',
+  storage: {
+    endPoint: 'localhost',
     port: 9000,
     useSSL: false,
     accessKey: 'minioadmin',
