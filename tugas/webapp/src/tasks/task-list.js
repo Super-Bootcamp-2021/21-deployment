@@ -5,7 +5,7 @@ import { store$ } from './store';
 export const TaskList = Vue.extend({
   props: ['tasks'],
   render(crt) {
-    const tasklist = this.$props.tasks.map((task) => {
+    const tasklist = this.$props?.tasks?.map((task) => {
       return crt('div', [
         crt(
           'a',

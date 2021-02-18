@@ -5,5 +5,8 @@ file-storage
 docs
 .tmrc
 .env
-
+token.txt
 .vercel
+webapp/www/*.js
+webapp/www/*.txt 
+
