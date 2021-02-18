@@ -34,9 +34,7 @@ services:
       - 4222:4222
     hostname: nats-server
   worker-svc:
-    # image: task-manager:1.1
-    # image: ghcr.io/carbon-super-bootcamp/taskmanager-svc
-    image: task-manager-svc
+    image: ghcr.io/carbon-super-bootcamp/taskmanager-svc
     depends_on:
       - minio
       - postgres
@@ -67,8 +65,7 @@ services:
     ports:
       - 7001:7001
   task-svc:
-    image: task-manager-svc
-    # image: ghcr.io/carbon-super-bootcamp/taskmanager-svc
+    image: ghcr.io/carbon-super-bootcamp/taskmanager-svc
     depends_on:
       - minio
       - postgres
@@ -96,13 +93,10 @@ services:
       tm_server__taskPort: 7002
       tm_server__workerPort: 7001
       tm_host__workerName: worker-svc
-    expose:
-      - 7002
     ports:
       - 7002:7002
   performance-svc:
-    # image: ghcr.io/carbon-super-bootcamp/taskmanager-svc
-    image: task-manager-svc
+    image: ghcr.io/carbon-super-bootcamp/taskmanager-svc
     depends_on:
       - minio
       - postgres
@@ -128,8 +122,6 @@ services:
       tm_kv__port: 6379
 
       tm_server__performancePort: 7003
-    expose:
-      - 7003
     ports:
       - 7003:7003
 
