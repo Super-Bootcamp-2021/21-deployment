@@ -25,9 +25,14 @@ const defaultConfig = {
     port: 6379,
   },
   server: {
-    taskPort: 7002,
     workerPort: 7001,
+    taskPort: 7002,
     performancePort: 7003,
+  },
+  host: {
+    workerName: 'localhost',
+    taskName: 'localhost',
+    performanceName: 'localhost',
   },
 };
 
