@@ -22,29 +22,29 @@ export const TaskList = Vue.extend({
         task.done
           ? crt('span', 'Sudah selesai')
           : crt('span', [
-            crt(
-              'button',
-              {
-                on: {
-                  click: () => {
-                    store$.dispatch(cancel(task.id));
+              crt(
+                'button',
+                {
+                  on: {
+                    click: () => {
+                      store$.dispatch(cancel(task.id));
+                    },
                   },
                 },
-              },
-              'batal'
-            ),
-            crt(
-              'button',
-              {
-                on: {
-                  click: () => {
-                    store$.dispatch(done(task.id));
+                'batal'
+              ),
+              crt(
+                'button',
+                {
+                  on: {
+                    click: () => {
+                      store$.dispatch(done(task.id));
+                    },
                   },
                 },
-              },
-              'selesai'
-            ),
-          ])
+                'selesai'
+              ),
+            ]),
       ]);
     });
     return crt('ol', tasklist);

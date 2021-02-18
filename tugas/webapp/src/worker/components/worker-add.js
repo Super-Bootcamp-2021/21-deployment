@@ -65,7 +65,6 @@ export const AddWorker = Vue.extend({
             domProps: {
               type: 'file',
               name: 'photo',
-              id: 'photo',
             },
             on: {
               change: (event) => {
@@ -87,7 +86,6 @@ export const AddWorker = Vue.extend({
           element('textarea', {
             domProps: {
               name: 'bio',
-              id: 'bio',
               cols: '30',
               rows: '3',
               placeholder: 'biodata singkat pekerja',
@@ -113,7 +111,6 @@ export const AddWorker = Vue.extend({
           element('textarea', {
             domProps: {
               name: 'address',
-              id: 'address',
               cols: '30',
               rows: '3',
               placeholder: 'alamat pekerja',
