@@ -8,8 +8,9 @@ services:
       POSTGRES_DB: tugas21
     expose:
       - 5432
+      - 5000
     ports:
-      - 5435:5432
+      - 5000:5432      
   redis:
     # Docker Hub image
     image: redis
@@ -28,15 +29,36 @@ services:
       - 6222:6226
       - 8222:8228  
   minio:
-    image: minio/minio
+    image: bitnami/minio:latest
     expose: 
       - 1111
     ports: 
       - 1111:1111
-      #- 9000:9000
+    # command: >
+    #   - server 
+    #   - /data
+    volumes:
+      - '/var/lib/myredmine/redmine_data:/bitnami'
     environment:
-      MINIO_ACCESS_KEY: access_key
-      MINIO_SECRET_KEY: secret_key
+      MINIO_ACCESS_KEY: minio-access-key
+      MINIO_SECRET_KEY: minio-secret-key
+      MINIO_PORT: 1111
+  minio_init:
+    depends_on:
+      - minio
+    image: minio/mc
+    environment:
+      MINIO_ACCESS_KEY: minio-access-key
+      MINIO_SECRET_KEY: minio-secret-key
+    # entrypoint: sh
+    # command:
+    #   - -c
+    #   - |
+    #       while ! mc -z minio 9000; do echo 'Waiting for minio to be ready...' && sleep 0.1; done
+    #       sleep 5
+    #       mc config host add dogs http://minio:9000 access secret
+    #       mc mb dogs/woof
+    #       mc policy download dogs/woof
   tugas-21-erbium:
     image: ghcr.io/erbium-sanbercode/tugas-21-erbium:latest
     command:
@@ -55,9 +77,9 @@ services:
       tm_server__workerPort: 7001
       tm_server__taskPort: 7002
       tm_server__performancePort: 7003
-      tm_minio__endPoint: 127.0.0.1
-      tm_minio__accessKey: access_key
-      tm_minio__secretKey: secret_key
+      tm_minio__endPoint: localhost
+      tm_minio__accessKey: minio-access_key
+      tm_minio__secretKey: minio-secret-key
       tm_minio__port: 1111
     expose: 
       - 7001
@@ -65,3 +87,6 @@ services:
       - 7003
     ports:
       - 7000:80
+volumes:
+  minio_data:
+    driver: local
