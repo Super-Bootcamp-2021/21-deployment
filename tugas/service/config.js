@@ -10,11 +10,19 @@ const defaultConfig = {
     database: 'sanbercode2',
   },
   storage: {
-    endPoint: 'localhost',
+    endPoint: '192.168.0.8',
     port: 9000,
     useSSL: false,
     accessKey: 'minioadmin',
     secretKey: 'minioadmin',
+  },
+  bus: {
+    url: 'localhost',
+    port: 4222,
+  },
+  kv: {
+    host: 'localhost',
+    port: 6379,
   },
   server: {
     taskPort: 7002,
