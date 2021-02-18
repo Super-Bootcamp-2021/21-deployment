@@ -13,34 +13,34 @@ const {config} = require('./config');
 async function init() {
   try {
     console.log('connect to database');
-    await orm.connect([WorkerSchema, TaskSchema], config.pg_database);
+    await orm.connect([WorkerSchema, TaskSchema], config.database);
     console.log('database connected');
   } catch (err) {
-    console.error('database connection failed');
+    console.error('database connection failed',err);
     process.exit(1);
   }
   try {
     console.log('connect to object storage');
-    await storage.connect('task-manager', config.minio_database);
+    await storage.connect('task-manager', config.storage);
     console.log('object storage connected');
   } catch (err) {
-    console.error('object storage connection failed');
+    console.error('object storage connection failed',err);
     process.exit(1);
   }
   try {
     console.log('connect to message bus');
-    await bus.connect();
+    await bus.connect(config.bus);
     console.log('message bus connected');
   } catch (err) {
-    console.error('message bus connection failed');
+    console.error('message bus connection failed',err);
     process.exit(1);
   }
   try {
     console.log('connect to key value store');
-    await kv.connect();
+    await kv.connect(config.kv);
     console.log('key value store connected');
   } catch (err) {
-    console.error('key value store connection failed');
+    console.error('key value store connection failed',err);
     process.exit(1);
   }
 }
